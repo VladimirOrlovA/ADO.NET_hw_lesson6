@@ -63,29 +63,20 @@ namespace ADO.NET_hw_lesson6
 
         private void miModel_Click(object sender, RoutedEventArgs e)
         {
-            //DataTableMapping mappingTable = new DataTableMapping("dic_Model", "Модель");
-            //mappingTable.ColumnMappings.Add(new DataColumnMapping("ModelId", "Идентификатор модели"));
-            //mappingTable.ColumnMappings.Add(new DataColumnMapping("Code", "Код"));
-            //mappingTable.ColumnMappings.Add(new DataColumnMapping("Name", "Название"));
-            //mappingTable.ColumnMappings.Add(new DataColumnMapping("SeriesId", "Идентификатор серии"));
-
-
-            DataTableMapping mappingTable = new DataTableMapping("dic_Model", "Model");
-            mappingTable.ColumnMappings.Add(new DataColumnMapping("ModelId", "Id"));
-            mappingTable.ColumnMappings.Add(new DataColumnMapping("Code", "Codeeeee"));
-            mappingTable.ColumnMappings.Add(new DataColumnMapping("Name", "Nameeeee"));
-            mappingTable.ColumnMappings.Add(new DataColumnMapping("SeriesId", "Serrrr"));
-
-            dataAdapter = new SqlDataAdapter(query+ "dic_Model", connection);
-            dataAdapter.TableMappings.Add(mappingTable);
-
+            dataAdapter = new SqlDataAdapter(query + "dic_Model", connection);
+            DataTableMapping mappingTable = dataAdapter.TableMappings.Add("Table", "Таблица Модель");
+            mappingTable.ColumnMappings.Add(new DataColumnMapping("ModelId", "Идентификатор модели"));
+            mappingTable.ColumnMappings.Add(new DataColumnMapping("Code", "Код"));
+            mappingTable.ColumnMappings.Add(new DataColumnMapping("Name", "Название"));
+            mappingTable.ColumnMappings.Add(new DataColumnMapping("SeriesId", "Идентификатор серии"));
             dataSet = new DataSet();
             dataAdapter.Fill(dataSet);
+
 
             _MainFrame.Navigate(new PageModel(dataSet));
         }
 
-        private void rbtnCtor_Click(object sender, RoutedEventArgs e) 
+        private void rbtnCtor_Click(object sender, RoutedEventArgs e)
         {
             GetDataSet(query + "dic_Group");
             _MainFrame.Navigate(new PageGroup(dataSet));
