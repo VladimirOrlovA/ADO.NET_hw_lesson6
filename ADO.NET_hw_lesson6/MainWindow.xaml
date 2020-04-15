@@ -1,0 +1,50 @@
+﻿<Window x:Class="ADO.NET_hw_lesson6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ADO.NET_hw_lesson6"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Padding="5">
+            <MenuItem Header="Group"
+                      x:Name="miGroup"
+                      Click="miGroup_Click" />
+
+            <MenuItem Header="Status"
+                      x:Name="miStatus"
+                      Click="miStatus_Click"/>
+
+            <MenuItem Header="Pavilion"
+                      x:Name="miPavilion"
+                      Click="miPavilion_Click"/>
+
+            <MenuItem Header="Model"
+                      x:Name="miModel"
+                      Click="miModel_Click"/>
+        </Menu>
+
+        <StackPanel Grid.Row="1"
+                    x:Name="spAddOptions"
+                    Margin="20"
+                    Visibility="Hidden">
+            <RadioButton x:Name="rbtnCtor"
+                         Click="rbtnCtor_Click"
+                         Content="Через Constructor"/>
+            <RadioButton x:Name="rbtnSqlComm"
+                         Click="rbtnSqlComm_Click"
+                         Content="Через SQLCommand"/>
+        </StackPanel>
+        
+        <Frame Grid.Row="1" x:Name="fMainFrame"
+               NavigationUIVisibility="Hidden"
+               Margin="10"/>
+
+    </Grid>
+</Window>
