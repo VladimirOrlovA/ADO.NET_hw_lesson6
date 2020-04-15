@@ -85,7 +85,7 @@ namespace ADO.NET_hw_lesson6
             _MainFrame.Navigate(new PageModel(dataSet));
         }
 
-        private void rbtnCtor_Click(object sender, RoutedEventArgs e)
+        private void rbtnCtor_Click(object sender, RoutedEventArgs e) 
         {
             GetDataSet(query + "dic_Group");
             _MainFrame.Navigate(new PageGroup(dataSet));
