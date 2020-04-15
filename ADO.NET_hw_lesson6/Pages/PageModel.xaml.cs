@@ -12,9 +12,6 @@ namespace ADO.NET_hw_lesson6.Pages
         {
             InitializeComponent();
             dgTable.ItemsSource = dataSet.Tables[0].DefaultView;
-            //dgTable.ItemsSource = dataSet.Tables["Модель"].DefaultView;
-            //dgTable.ItemsSource = dataSet.DefaultViewManager;
-
             gboxTableName.Header = dataSet.Tables[0].TableName;
         }
     }

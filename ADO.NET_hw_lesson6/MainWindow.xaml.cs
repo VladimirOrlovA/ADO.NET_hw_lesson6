@@ -18,6 +18,7 @@ namespace ADO.NET_hw_lesson6
         static SqlConnection connection = new SqlConnection(connStr);
         static SqlDataAdapter dataAdapter;
         static DataSet dataSet;
+        DataTableMapping tableMapping;
         static string query;
 
         public MainWindow()
@@ -27,10 +28,12 @@ namespace ADO.NET_hw_lesson6
             query = "SELECT * FROM ";
         }
 
-        DataSet GetDataSet(string query)
+        DataSet GetDataSet(string query, string tableName)
         {
             dataAdapter = new SqlDataAdapter(query, connection);
             dataSet = new DataSet();
+            tableMapping = new DataTableMapping("Table", $"Таблица {tableName}");
+            dataAdapter.TableMappings.Add(tableMapping);
             dataAdapter.Fill(dataSet);
             return dataSet;
         }
@@ -49,14 +52,14 @@ namespace ADO.NET_hw_lesson6
 
         private void miStatus_Click(object sender, RoutedEventArgs e)
         {
-            GetDataSet(query + "dic_Status");
+            GetDataSet(query + "dic_Status", "Статус");
             _MainFrame.Navigate(new PageStatus(dataSet));
             PageViewSettings();
         }
 
         private void miPavilion_Click(object sender, RoutedEventArgs e)
         {
-            GetDataSet(query + "dic_Pavilion");
+            GetDataSet(query + "dic_Pavilion", "Павильон");
             _MainFrame.Navigate(new PagePavilion(dataSet));
             PageViewSettings();
         }
@@ -64,32 +67,39 @@ namespace ADO.NET_hw_lesson6
         private void miModel_Click(object sender, RoutedEventArgs e)
         {
             dataAdapter = new SqlDataAdapter(query + "dic_Model", connection);
-            DataTableMapping mappingTable = dataAdapter.TableMappings.Add("Table", "Таблица Модель");
-            mappingTable.ColumnMappings.Add(new DataColumnMapping("ModelId", "Идентификатор модели"));
-            mappingTable.ColumnMappings.Add(new DataColumnMapping("Code", "Код"));
-            mappingTable.ColumnMappings.Add(new DataColumnMapping("Name", "Название"));
-            mappingTable.ColumnMappings.Add(new DataColumnMapping("SeriesId", "Идентификатор серии"));
-            dataSet = new DataSet();
-            dataAdapter.Fill(dataSet);
+            DataTableMapping tableMapping = new DataTableMapping("Table", "Таблица Модель");
+            tableMapping.ColumnMappings.Add(new DataColumnMapping("ModelId", "Идентификатор модели"));
+            tableMapping.ColumnMappings.Add(new DataColumnMapping("Code", "Код"));
+            tableMapping.ColumnMappings.Add(new DataColumnMapping("Name", "Название"));
+            tableMapping.ColumnMappings.Add(new DataColumnMapping("SeriesId", "Идентификатор серии"));
 
+            dataSet = new DataSet();
+            dataAdapter.TableMappings.Add(tableMapping);
+            dataAdapter.Fill(dataSet);
+            dataAdapter.Dispose();
 
             _MainFrame.Navigate(new PageModel(dataSet));
         }
 
         private void rbtnCtor_Click(object sender, RoutedEventArgs e)
         {
-            GetDataSet(query + "dic_Group");
+            spAddOptions.Visibility = Visibility.Hidden;
+
+            GetDataSet(query + "dic_Group", "Группа");
             _MainFrame.Navigate(new PageGroup(dataSet));
             _MainFrame.Visibility = Visibility.Visible;
         }
 
         private void rbtnSqlComm_Click(object sender, RoutedEventArgs e)
         {
+            spAddOptions.Visibility = Visibility.Hidden;
+
             SqlCommand command = new SqlCommand();
             command.CommandText = query + "dic_Group";
             command.Connection = connection;
             dataAdapter = new SqlDataAdapter();
             dataAdapter.SelectCommand = command;
+            dataAdapter.TableMappings.Add(new DataTableMapping("Table", "Таблица Группа"));
             dataSet = new DataSet();
             dataAdapter.Fill(dataSet);
 

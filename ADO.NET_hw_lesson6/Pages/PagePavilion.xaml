@@ -9,9 +9,11 @@
       Title="PagePavilion">
 
     <Grid>
-        <DataGrid x:Name="dgTable"
-                 AutoGenerateColumns="True"
+        <GroupBox x:Name="gboxTableName"
+                  Padding="10">
+            <DataGrid x:Name="dgTable"
                  VerticalScrollBarVisibility="Auto"
                  HorizontalScrollBarVisibility="Auto"/>
+        </GroupBox>
     </Grid>
 </Page>
